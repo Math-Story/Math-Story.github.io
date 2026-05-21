@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>90步：华容道的最优解 — 数学故事 Math-Story</title>
+    <meta name="description" content="曹操最少需要多少步才能逃出华容道？答案是90步——精确地90步。由BFS地毯式搜索两万四千个状态后得出，不是靠人想出来的。">
+    <meta name="keywords" content="华容道,BFS,广度优先搜索,状态空间,最优解,90步,A星,搜索算法,数学故事">
+    <meta name="author" content="数学故事 Math-Story">
+    <link rel="stylesheet" href="../css/style.css">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "90步：华容道的最优解，和一个关于"聪明"的数学真相",
+        "author": { "@type": "Organization", "name": "数学故事 Math-Story" },
+        "datePublished": "2026-05-10",
+        "dateModified": "2026-05-10",
+        "about": ["华容道", "BFS", "状态空间搜索", "A*算法", "最优解", "横刀立马"],
+        "keywords": "华容道,BFS,广度优先搜索,状态空间,最优解,90步,搜索算法",
+        "educationalLevel": "high school+",
+        "learningResourceType": "数学科普文章",
+        "image": "https://math-story.github.io/images/huarongdao-board.png",
+        "mainEntityOfPage": "https://math-story.github.io/articles/huarongdao-90.html"
+    }
+    </script>
+</head>
+<body>
+
+<nav>
+    <div class="nav-inner">
+        <a href="../index.html" class="brand">数学故事 <span>Math-Story</span></a>
+        <div>
+            <a href="../index.html">首页</a>
+            <a href="../about.html">关于</a>
+            <a href="../faq.html">FAQ</a>
+        </div>
+    </div>
+</nav>
+
+<main class="container">
+<article>
+    <h1>90步：华容道的最优解，和一个关于"聪明"的数学真相</h1>
+    <div class="meta">
+        <span>2026-05-10</span>
+        <span>华容道</span>
+        <span>搜索算法</span>
+        <span>约 2,800 字</span>
+    </div>
+
+    <p>你有没有玩过华容道？</p>
+
+    <p>一个木制棋盘，20个格子，10个滑块——曹操2×2，五虎将1×2或2×1，四个小兵1×1。目标只有一件事：让曹操从底部出口逃出去。</p>
+
+    <p>你试了几下。曹操被围得死死的。这时候，一个看似简单的问题浮现出来：</p>
+
+    <p><strong>曹操最少需要多少步才能逃出华容道？</strong></p>
+
+    <p>答案是<strong>90步</strong>。不是80步，不是82步——精确地90步。</p>
+
+    <p>但这个"90"是怎么来的？不是哪个聪明人"想"出来的——是一台计算机，用了一种叫"搜索算法"的方法，把所有的可能性都翻了一遍之后，才敢给出的答案。</p>
+
+    <img src="../images/华容道横刀立马棋盘.png" alt="华容道横刀立马初始布局——曹操被五虎将围困在顶部中央">
+
+    <h2>在开始之前，先搞清三件事</h2>
+
+    <p>第一，华容道的每一个局面，在数学里叫做一个<strong>"状态"</strong>。所有可能的状态，构成了<strong>"状态空间"</strong>。你要找到的，是从起点到目标的一条路径。</p>
+
+    <p>第二，计算机找这条路的方法叫<strong>"搜索"</strong>——它不是在"思考"，而是在"排查"。最朴素的搜索叫<strong>BFS</strong>（广度优先搜索），一层一层往外扩，像地毯式轰炸一样，保证能找到最短的路。</p>
+
+    <p>第三，但华容道的状态空间有几万到几十万个节点——地毯式搜索太慢了。于是有人发明了<strong>A*算法</strong>——给搜索加上一个"方向感"，让它优先往"看起来更近"的方向搜。这就像在迷宫里有了一只指南针。</p>
+
+    <p>搞清楚了这三件事，你就会发现：你解华容道时脑子里做的判断，和GPS导航规划路线、游戏AI选择走位、甚至DNA测序拼接基因片段——用的是同一种数学。</p>
+
+    <h2>状态空间：华容道的"平行宇宙"</h2>
+
+    <p>以最经典的<strong>"横刀立马"</strong>布局为例，它的可到达状态大约有<strong>三万个</strong>。</p>
+
+    <p>三万个状态，每个状态平均有2到4种合法滑动。如果你把每个状态画成一个节点，每次滑动画成一条边——你会得到一张巨大的网。这张网的<strong>直径是90</strong>——从起点到出口，最短路径的长度。</p>
+
+    <p>你的任务，就是在这张三万个节点的网中，找到那唯一一条长度为90的最短路径。</p>
+
+    <h2>BFS：地毯式搜索——最笨但也最可靠</h2>
+
+    <p>如果你在黑夜中迷路了，手里只有一盏灯笼，你会怎么找出口？</p>
+
+    <p>一个办法是：从脚下开始，先走一圈半径1米的圆圈，没找到；再走半径2米的圆圈……一层一层往外扩，直到碰上出口。</p>
+
+    <p>这就是<strong>BFS（广度优先搜索）</strong>——先探索所有1步能到的状态，再所有2步能到的，3步、4步……一层一层往外扩展。</p>
+
+    <img src="../images/华容道BFS搜索树.png" alt="BFS搜索树——层层扩展，地毯式搜索">
+
+    <p>BFS有一个很妙的性质：<strong>它保证找到的路径是最短的。</strong>因为它是按"步数"一层一层找的——第一次碰到目标状态的那一层，就是最短路径的长度。</p>
+
+    <p>但代价也很明显。对于横刀立马布局，BFS需要展开大约<strong>两万四千个节点</strong>。对计算机来说不算什么——一台普通笔记本几秒钟就能跑完。但如果让你手动BFS……你大概需要不眠不休地画三万个局面。</p>
+
+    <h2>A*：给搜索装上指南针</h2>
+
+    <p>1968年，斯坦福研究院的Peter Hart、Nils Nilsson和Bertram Raphael发明了<strong>A*算法</strong>。</p>
+
+    <p>A*和BFS的区别，就像在黑夜中找人——BFS是举着灯笼一圈一圈找，A*是带着指南针直接往最可能的方向找。这个"指南针"在数学里叫<strong>启发式函数</strong>。</p>
+
+    <p>A*为每个状态计算：</p>
+
+    <p style="text-align:center;font-size:1.1rem;"><strong>f(n) = g(n) + h(n)</strong></p>
+
+    <p style="text-align:center;color:var(--text-secondary);">"这个状态的总代价 = 你已经走了多少步 + 我估计你还要走多少步"</p>
+
+    <p>华容道最简单的估计函数是：<strong>曹操到出口的曼哈顿距离</strong>——即曹操当前位置到出口在纵横方向上差了多少格。更好的估计函数加上<strong>阻挡计数</strong>。更强的用<strong>模式数据库</strong>——预计算所有半棋盘排列的精确步数存储在大表中，搜索时直接查表，展开节点从三万降到约两千，效率提升93%。</p>
+
+    <img src="../images/华容道A星对比BFS.png" alt="A* vs BFS 搜索效率对比——三种启发式函数展开节点数逐级递减">
+
+    <h2>2004年：90步的证明</h2>
+
+    <p>横刀立马的最优解为什么是90步？2004年，这个问题的答案被正式确认：</p>
+
+    <ol>
+        <li>用A*算法从起点到终点，找到了一条<strong>90步的路径</strong>——证明<strong>存在</strong>90步的解法。</li>
+        <li>把89步以内能到达的状态全部穷举——证明<strong>不存在</strong>更短的解法。</li>
+    </ol>
+
+    <p>这让人想到另一个著名的数学证明——<strong>四色定理</strong>：1976年，Appel和Haken用计算机穷举了1936种构型后证明了任何地图只需四种颜色。当时数学界一片哗然。但事实是：人类的大脑可以理解证明的逻辑，却无法在不借助计算机的情况下验证每一个计算步骤。</p>
+
+    <p>华容道的90步证明，有着相同的数学味道：<strong>有些问题的答案，不是"想"出来的，而是"搜"出来的。</strong></p>
+
+    <img src="../images/华容道解法阶段.gif" alt="华容道解法关键阶段动图——从开局到曹操脱出">
+
+    <h2>穷举思维——一个被严重低估的思维模型</h2>
+
+    <p>很多人在面对复杂问题时，本能地想"想出最聪明的答案"。但有些问题的正确答案不是"想"出来的，而是被<strong>"搜"</strong>出来的。你需要的是设计一个好的搜索策略：怎么表示状态？怎么定义"更近"？怎么剪掉明显不对的分支？</p>
+
+    <p>这个思维模型不仅适用于数学。你去理解一个复杂行业——你是在状态空间中搜索"重要的认知节点"。你做一个产品的功能取舍——你是在搜索"最优的路径"。华容道看起来是个三个世纪前的中国玩具，但它的数学核心，是21世纪的人工智能。</p>
+
+    <h2>想亲手试试？</h2>
+    <ul>
+        <li><strong>换策略玩</strong>：下次拿出华容道，带着搜索算法的思维——当前状态有几种合法滑动？哪一种"看起来"离出口更近？你是在做BFS还是A*？</li>
+        <li><strong>写代码</strong>：如果你会编程，用BFS写出华容道求解器，然后给它装上你自己的启发式函数。</li>
+        <li><strong>一个挑战</strong>：华容道文献中流传着"81步最优解"的说法。如果你发现了比90步更短的解法，请把步骤发给我们。这不是争论——这是一个"让我们一起找到真相"的邀请。</li>
+    </ul>
+
+    <blockquote>你以为你在玩一个解谜游戏。其实，你的大脑在运行一个搜索算法——只是你不知道而已。</blockquote>
+
+    <div class="ai-meta">
+        <h3>本文回答了以下问题</h3>
+        <ul>
+            <li>华容道最少需要多少步才能解出？</li>
+            <li>BFS（广度优先搜索）是什么？如何工作？</li>
+            <li>什么是状态空间？</li>
+            <li>A*算法比BFS聪明在哪里？</li>
+            <li>计算机如何证明一个步数是最优解？</li>
+        </ul>
+        <p><strong>核心数学概念：</strong>状态空间搜索、BFS（广度优先搜索）、A*算法、启发式函数、最优解证明</p>
+        <p><strong>适用读者：</strong>对算法和计算思维感兴趣的读者（高中及以上）</p>
+        <p><strong>关联玩具：</strong>华容道</p>
+    </div>
+
+    <div class="related">
+        <h3>继续阅读</h3>
+        <a href="huarongdao-heuristic.html">启发式搜索的真相</a>
+        <a href="tangram-13.html">七巧板和它的13个秘密</a>
+        <a href="slime-mold.html">黏菌与Steiner树</a>
+    </div>
+</article>
+</main>
+
+<footer class="container">
+    <p><strong>数学故事 Math-Story</strong> — 用玩具讲数学的科普品牌</p>
+    <p style="margin-top:8px;">© 2026 数学故事 Math-Story</p>
+</footer>
+
+</body>
+</html>

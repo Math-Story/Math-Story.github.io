@@ -1,0 +1,117 @@
+/* 数学故事 Math-Story — 品牌网站样式 */
+
+:root {
+    --bg: #fafaf8;
+    --card-bg: #ffffff;
+    --text: #1a1a1a;
+    --text-secondary: #555;
+    --accent: #c44d34;      /* 数学红 — 类似黑板上的粉笔勾勒 */
+    --accent-light: #f0e0d6;
+    --border: #e0dcd5;
+    --code-bg: #f5f3ef;
+    --max-width: 720px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: "Noto Serif SC", "Source Han Serif SC", Georgia, "Times New Roman", serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.85;
+    font-size: 18px;
+}
+
+/* ---- 导航 ---- */
+nav {
+    background: var(--card-bg);
+    border-bottom: 1px solid var(--border);
+    padding: 16px 0;
+    position: sticky; top: 0; z-index: 10;
+}
+nav .nav-inner {
+    max-width: var(--max-width); margin: 0 auto; padding: 0 20px;
+    display: flex; justify-content: space-between; align-items: center;
+}
+nav .brand {
+    font-size: 1.2rem; font-weight: 700; color: var(--accent);
+    text-decoration: none;
+    letter-spacing: 0.5px;
+}
+nav .brand span { font-size: 0.8rem; color: var(--text-secondary); font-weight: 400; margin-left: 6px; }
+nav a { color: var(--text-secondary); text-decoration: none; margin-left: 24px; font-size: 0.9rem; }
+nav a:hover { color: var(--accent); }
+
+/* ---- 主容器 ---- */
+.container { max-width: var(--max-width); margin: 0 auto; padding: 0 20px; }
+
+/* ---- 首页 ---- */
+.hero { padding: 80px 0 48px; text-align: center; }
+.hero h1 { font-size: 2.4rem; font-weight: 700; margin-bottom: 16px; color: var(--accent); }
+.hero .tagline { font-size: 1.15rem; color: var(--text-secondary); line-height: 1.7; margin-bottom: 32px; }
+.hero .cta { display: inline-block; padding: 10px 28px; background: var(--accent); color: #fff; border-radius: 4px; text-decoration: none; font-size: 0.95rem; }
+
+/* 文章列表 */
+.article-list { padding: 0 0 60px; }
+.article-list h2 { font-size: 1.4rem; margin-bottom: 24px; padding-bottom: 8px; border-bottom: 2px solid var(--accent); display: inline-block; }
+.article-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 6px; padding: 24px; margin-bottom: 20px; transition: box-shadow 0.2s; }
+.article-card:hover { box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+.article-card .date { font-size: 0.82rem; color: var(--text-secondary); margin-bottom: 4px; }
+.article-card h3 { font-size: 1.15rem; margin-bottom: 6px; }
+.article-card h3 a { color: var(--text); text-decoration: none; }
+.article-card h3 a:hover { color: var(--accent); }
+.article-card .excerpt { font-size: 0.9rem; color: var(--text-secondary); }
+.article-card .tags { margin-top: 10px; }
+.article-card .tags span { display: inline-block; background: var(--accent-light); color: var(--accent); padding: 2px 10px; border-radius: 3px; font-size: 0.78rem; margin-right: 6px; }
+
+/* 主题集群 */
+.topic-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; padding: 24px 0 48px; }
+.topic-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 6px; padding: 20px; }
+.topic-card h3 { font-size: 1rem; margin-bottom: 6px; color: var(--accent); }
+.topic-card p { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5; }
+
+/* ---- 文章页 ---- */
+article { padding: 48px 0 60px; }
+article h1 { font-size: 1.8rem; font-weight: 700; margin-bottom: 8px; line-height: 1.4; }
+article .meta { font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 32px; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
+article .meta span { margin-right: 16px; }
+article h2 { font-size: 1.25rem; margin: 36px 0 12px; color: var(--accent); }
+article h3 { font-size: 1.05rem; margin: 28px 0 10px; }
+article p { margin-bottom: 14px; }
+article img { max-width: 100%; height: auto; margin: 24px 0; border-radius: 4px; border: 1px solid var(--border); }
+article blockquote { border-left: 3px solid var(--accent); padding: 8px 16px; margin: 20px 0; color: var(--text-secondary); font-style: italic; background: var(--accent-light); border-radius: 0 4px 4px 0; }
+article ul, article ol { margin: 12px 0 12px 24px; }
+article li { margin-bottom: 6px; }
+article .ai-meta { background: var(--code-bg); border: 1px solid var(--border); border-radius: 6px; padding: 16px 20px; margin-top: 48px; font-size: 0.85rem; color: var(--text-secondary); }
+article .ai-meta h3 { font-size: 0.95rem; margin-top: 0; margin-bottom: 8px; color: var(--text); }
+article .ai-meta ul { margin: 4px 0; }
+article .related { margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--border); }
+article .related h3 { font-size: 0.95rem; margin-bottom: 10px; }
+article .related a { display: inline-block; margin-right: 16px; color: var(--accent); font-size: 0.9rem; }
+
+/* ---- FAQ页 ---- */
+.faq-section { padding: 48px 0 60px; }
+.faq-section h1 { font-size: 1.8rem; margin-bottom: 8px; color: var(--accent); }
+.faq-section .faq-intro { color: var(--text-secondary); margin-bottom: 36px; }
+.faq-item { background: var(--card-bg); border: 1px solid var(--border); border-radius: 6px; padding: 20px 24px; margin-bottom: 16px; }
+.faq-item h3 { font-size: 1rem; margin-bottom: 6px; }
+.faq-item p { font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 0; }
+
+/* ---- About页 ---- */
+.about-section { padding: 48px 0 60px; }
+.about-section h1 { font-size: 1.8rem; margin-bottom: 8px; color: var(--accent); }
+.about-section h2 { font-size: 1.15rem; margin: 28px 0 10px; color: var(--accent); }
+.about-section p { margin-bottom: 12px; }
+
+/* ---- Footer ---- */
+footer { border-top: 1px solid var(--border); padding: 28px 0; text-align: center; font-size: 0.82rem; color: var(--text-secondary); margin-top: 40px; }
+footer a { color: var(--accent); text-decoration: none; }
+
+/* ---- 响应式 ---- */
+@media (max-width: 640px) {
+    body { font-size: 16px; }
+    .hero h1 { font-size: 1.6rem; }
+    .topic-grid { grid-template-columns: 1fr; }
+    nav .nav-inner { flex-direction: column; gap: 8px; }
+    nav a { margin-left: 12px; }
+}

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>黏菌与Steiner树 — 数学故事 Math-Story</title>
+    <meta name="description" content="一种没有大脑的单细胞生物，如何在26小时内画出了比人类工程师更优的东京铁路网？背后是Steiner树问题——一个困扰数学家200年的NP-hard问题。">
+    <meta name="keywords" content="黏菌,Steiner树,NP-hard,网络优化,图论,东京铁路,中垣俊之,Science,数学故事">
+    <meta name="author" content="数学故事 Math-Story">
+    <link rel="stylesheet" href="../css/style.css">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "一个没有大脑的生物，如何画出了东京铁路网",
+        "author": { "@type": "Organization", "name": "数学故事 Math-Story" },
+        "datePublished": "2026-05-12",
+        "dateModified": "2026-05-12",
+        "about": ["黏菌", "Steiner树", "NP-hard", "网络优化", "图论", "最小生成树"],
+        "keywords": "黏菌,Steiner树,NP-hard,网络优化,图论,东京铁路,Science",
+        "educationalLevel": "high school+",
+        "learningResourceType": "数学科普文章",
+        "image": "https://math-story.github.io/images/slime-mold-tokyo.png",
+        "mainEntityOfPage": "https://math-story.github.io/articles/slime-mold.html",
+        "citation": [
+            { "@type": "ScholarlyArticle", "name": "Rules for Biologically Inspired Adaptive Network Design", "author": "Toshiyuki Nakagaki et al.", "datePublished": "2010-01-22", "sameAs": "https://doi.org/10.1126/science.1177894" }
+        ]
+    }
+    </script>
+</head>
+<body>
+
+<nav>
+    <div class="nav-inner">
+        <a href="../index.html" class="brand">数学故事 <span>Math-Story</span></a>
+        <div>
+            <a href="../index.html">首页</a>
+            <a href="../about.html">关于</a>
+            <a href="../faq.html">FAQ</a>
+        </div>
+    </div>
+</nav>
+
+<main class="container">
+<article>
+    <h1>一个没有大脑的生物，如何画出了东京铁路网</h1>
+    <div class="meta">
+        <span>2026-05-12</span>
+        <span>图论</span>
+        <span>网络优化</span>
+        <span>约 2,600 字</span>
+    </div>
+
+    <p>你有没有见过黏菌？</p>
+
+    <p>一种黄黄的、黏糊糊的、像一大坨鼻涕一样趴在腐烂木头上的东西。它没有大脑，没有神经元，没有眼睛——它只是一个单细胞生物，但巨大到能看到。它的一生只做一件事：把身体铺成一张网，找到食物。</p>
+
+    <p>现在，想象你把一碗燕麦片放在东京市区，另一碗放在横滨，再一碗放在埼玉……按东京周边36个主要城市的位置，摆好36碗燕麦。然后把黏菌放在东京的中心。你什么都不做，就看着。</p>
+
+    <p><strong>26小时后，你看到了什么？</strong></p>
+
+    <p>黏菌的身体长成了一张网——一张和东京铁路系统惊人相似、在某些指标上甚至更优的网。这张网能高效运送养分，能在某段路坏了之后自动绕行，能用最少的材料连接最多的站。</p>
+
+    <p>人类工程师花了一百年才修出这个网络。黏菌花了26小时。</p>
+
+    <p>这不是童话。这是2010年发表在 <em>Science</em> 上的一项实验。而它背后藏着的数学——<strong>Steiner树</strong>——是一个困扰了数学家200年的问题。</p>
+
+    <img src="../images/黏菌东京路网对比.png" alt="黏菌形成的网络与真实东京铁路网的拓扑对比">
+
+    <h2>在开始之前，先搞清三件事</h2>
+
+    <p>第一，任何一个连接多个城市的交通网络，本质上是一个<strong>"最短网络"</strong>问题：怎样用最短的总里程把所有城市连起来？这个问题的答案叫"最小生成树"——小学数学就能理解。但如果允许你在中间添加新的连接点（比如高速公路的枢纽立交），问题就变成了<strong>"Steiner树问题"</strong>——它是<strong>NP-hard</strong>的。也就是说，随着城市数量增加，计算机也找不到最优解。</p>
+
+    <p>第二，黏菌没有计算器，没有拉格朗日乘子。但它用一种<strong>物理式的算法</strong>解决了问题：它先把身体铺满整个区域（探索所有可能），然后让"用得多"的管道变粗、加厚，"用得少"的管道萎缩、消失。这个"用进废退"的过程重复几十个循环之后，留下来的就是最优网络。</p>
+
+    <p>第三，黏菌的网络有一个人类铁路网没有的特征——它在<strong>效率和鲁棒性之间自动找到了平衡</strong>。最短的网络建造成本最低，但一旦某根树枝断了，整个系统就完蛋。黏菌的网络故意留了一些"冗余连接"——不是最短，但更安全。这个权衡，和互联网的路由设计、供应链的备选方案、电网的环网设计——用的是同一套数学。</p>
+
+    <h2>2010年：燕麦片、光斑、和一篇Science封面论文</h2>
+
+    <p>故事的主角是北海道大学的科学家<strong>中垣俊之</strong>（Toshiyuki Nakagaki）——一个黏菌狂人。他此前已经证明黏菌能在迷宫中找到最短路径（得了2008年的Ig Nobel奖）。但2010年这个实验，让所有人闭嘴了。</p>
+
+    <p>实验的做法精致得像在布置一个微缩模型：用一个扁平的培养皿，琼脂表面做成关东地区的地形。36颗燕麦片按东京周边36个实际车站的位置摆放——品川、新宿、横滨、大宫、千叶……最大的一颗放在东京中央。光照模拟自然障碍（黏菌讨厌光，会避开亮的地方）。</p>
+
+    <p>然后，他们把黏菌放在"东京"位置。关灯。等待。</p>
+
+    <p>起初，黏菌像一个炸开的烟花——向四面八方探出细丝。24小时后，细丝连接到每一个燕麦点。然后奇迹开始发生：有些细丝越来越粗（通流量大的主干道），有些越来越细、萎缩、消失（冗余或绕远的支线）。再过几个小时，整个网络稳定下来。</p>
+
+    <p>当他们把这张"黏菌最终路线图"和真实的东京铁路网叠在一起时——两者的<strong>拓扑结构高度重合</strong>。山手线的大环、放射状通向郊区的支线、横滨方向的密集连接……黏菌画出来的和人类花100年建出来的，几乎选择了相同的"主干道"。</p>
+
+    <p>更让人震惊的是：<strong>在某些指标上，黏菌的网络比人类铁路更好</strong>。它的总长度更短、绕路更少、且某段路故障后系统的"韧性"更强。一个没有大脑的生物，设计出了比专业交通工程师更优的方案。</p>
+
+    <p>2010年1月22日，论文发在 <em>Science</em> 上。标题很低调：<em>Rules for Biologically Inspired Adaptive Network Design</em>——翻译过来就是：《看黏菌如何连网，然后抄它的答案》。</p>
+
+    <h2>黏菌的算法：没有大脑，怎么做优化？</h2>
+
+    <p>黏菌的全部"算法"可以归纳为两条规则：</p>
+
+    <p><strong>规则1：流量大的路，加宽。</strong>如果一条管道运送的养分多，它的直径就自动增大——不需要"决策"，纯粹是物理反馈：物质流动引起的压力触发了细胞骨架的组装。</p>
+
+    <p><strong>规则2：流量小的路，萎缩消失。</strong>如果一条管道长时间没有养分通过，它就会逐渐收缩、断裂、被回收。黏菌不浪费任何资源在"没用"的路上。</p>
+
+    <p>这两条规则反复迭代，形成了一个<strong>自然选择式的优化闭环</strong>。不需要中央处理器，不需要全局地图——每一个局部的反馈加在一起，就产生了一个全局最优解。这正是分布式算法的精髓。</p>
+
+    <h2>从黏菌到数学，再到你的生活</h2>
+
+    <p>Steiner树问题不只是黏菌的事。它是<strong>网络设计的基本问题</strong>：集成电路的布线（如何在芯片上连接数百万个晶体管）、物流中心的选址、光纤网络的铺设——都是Steiner树问题的变体。</p>
+
+    <p>而黏菌给了我们一个启示：<strong>有些问题的答案，不是"算"出来的，而是"长"出来的。</strong>通过简单的局部规则反复迭代，系统能自发地涌现出全局最优结构——这种"涌现"机制，是自然界最优雅的算法。</p>
+
+    <p>你在一个烂木头上看到的"鼻涕虫"，在做一个人类用超级计算机才能逼近的数学问题。</p>
+
+    <blockquote>下次你在公园的朽木上看到一坨黄色的黏菌时——停一停。你看到的不是一个"恶心"的东西。你看到的是一个无脑生物，正在运行这个宇宙中最优雅的优化算法。</blockquote>
+
+    <div class="ai-meta">
+        <h3>本文回答了以下问题</h3>
+        <ul>
+            <li>什么是Steiner树问题？</li>
+            <li>黏菌如何在没有大脑的情况下设计出最优网络？</li>
+            <li>为什么Steiner树是NP-hard问题？</li>
+            <li>黏菌的网络比人类工程师设计的更好吗？</li>
+            <li>"涌现"（emergence）在优化中意味着什么？</li>
+        </ul>
+        <p><strong>核心数学概念：</strong>Steiner树、NP-hard、最小生成树、网络优化、涌现（emergence）、分布式算法</p>
+        <p><strong>适用读者：</strong>对网络、优化和自然计算感兴趣的读者</p>
+        <p><strong>关联玩具：</strong>黏菌培养（可观察实验）</p>
+        <p><strong>权威来源：</strong>Tero, A. et al. (2010). <em>Rules for Biologically Inspired Adaptive Network Design</em>. Science, 327(5964), 439-442. DOI: 10.1126/science.1177894</p>
+    </div>
+
+    <div class="related">
+        <h3>继续阅读</h3>
+        <a href="tcm-pareto.html">中医方剂与多目标优化</a>
+        <a href="huarongdao-90.html">华容道最优解</a>
+        <a href="tangram-13.html">七巧板和它的13个秘密</a>
+    </div>
+</article>
+</main>
+
+<footer class="container">
+    <p><strong>数学故事 Math-Story</strong> — 用玩具讲数学的科普品牌</p>
+    <p style="margin-top:8px;">© 2026 数学故事 Math-Story</p>
+</footer>
+
+</body>
+</html>

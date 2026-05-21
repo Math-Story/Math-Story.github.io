@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>中医方剂与多目标优化 — 数学故事 Math-Story</title>
+    <meta name="description" content="1800年前张仲景写的桂枝汤，藏着一个多目标优化问题。用数学翻译中医的君臣佐使——就是加权多目标优化，落在Pareto前沿上。">
+    <meta name="keywords" content="中医,方剂,多目标优化,Pareto最优,桂枝汤,张仲景,君臣佐使,数学故事">
+    <meta name="author" content="数学故事 Math-Story">
+    <link rel="stylesheet" href="../css/style.css">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "1800年前的药方，藏着一个多目标优化算法",
+        "author": { "@type": "Organization", "name": "数学故事 Math-Story" },
+        "datePublished": "2026-05-11",
+        "dateModified": "2026-05-11",
+        "about": ["中医", "方剂学", "多目标优化", "Pareto最优", "桂枝汤", "张仲景", "君臣佐使"],
+        "keywords": "中医,方剂,多目标优化,Pareto最优,桂枝汤,张仲景,君臣佐使",
+        "educationalLevel": "high school+",
+        "learningResourceType": "数学科普文章",
+        "image": "https://math-story.github.io/images/tcm-pareto-front.png",
+        "mainEntityOfPage": "https://math-story.github.io/articles/tcm-pareto.html",
+        "citation": [
+            { "@type": "Book", "name": "伤寒杂病论", "author": "张仲景", "datePublished": "约公元200年" }
+        ]
+    }
+    </script>
+</head>
+<body>
+
+<nav>
+    <div class="nav-inner">
+        <a href="../index.html" class="brand">数学故事 <span>Math-Story</span></a>
+        <div>
+            <a href="../index.html">首页</a>
+            <a href="../about.html">关于</a>
+            <a href="../faq.html">FAQ</a>
+        </div>
+    </div>
+</nav>
+
+<main class="container">
+<article>
+    <h1>1800年前的药方，藏着一个多目标优化算法</h1>
+    <div class="meta">
+        <span>2026-05-11</span>
+        <span>优化理论</span>
+        <span>数学建模</span>
+        <span>约 2,400 字</span>
+    </div>
+
+    <p>你有没有看过一张中药方？</p>
+
+    <p>桂枝、芍药、生姜、大枣、甘草。五味药，各有一个精确的剂量——三两、三两、三两、十二枚、二两。</p>
+
+    <p>这就是<strong>桂枝汤</strong>。公元200年左右，张仲景把它写进了《伤寒杂病论》。1800年后，它依然是中医方剂学里教的第一张方子，也是临床应用最广的方子之一。</p>
+
+    <p>但有一个问题，1800年来很少被问过：<strong>为什么恰好是这五味？为什么恰好是这个比例？</strong></p>
+
+    <p>桂枝再多一两会怎样？芍药再减一两会怎样？把生姜换成干姜行不行？</p>
+
+    <p>答案是：<strong>张仲景在不经意间，解决了一个多目标优化问题。</strong>他在没有微积分、没有线性规划、甚至没有代数的时代，凭借"试错+经验归纳"，找到了一个在多维约束空间里落在<strong>Pareto前沿</strong>上的配比。</p>
+
+    <p>这不是在神化中医。恰恰相反——这是用数学把中医的可量化内核拆解给你看。</p>
+
+    <img src="../images/桂枝汤成分分析.png" alt="桂枝汤五味药的成分网络关系图">
+
+    <h2>在开始之前，先搞清三件事</h2>
+
+    <p>第一，任何一个多味药的方剂，本质上是一个<strong>多目标优化</strong>问题。你要同时追求多个目标：最大化疗效、最小化毒性、平衡各药之间的协同与拮抗。这三个目标往往互相冲突——药力猛的毒性大，毒性小的效果弱。</p>
+
+    <p>第二，在多目标优化里，不存在"唯一最优解"。只存在<strong>Pareto最优解集</strong>——一组"在不损害任何一个目标的前提下，无法再提升另一个目标"的状态。换句话说，如果你要疗效更强，就必须接受毒性更大；如果你要更安全，就必须接受效力打折扣。没有"既要又要"的免费午餐。</p>
+
+    <p>第三，中医的<strong>君臣佐使</strong>原则，用数学的语言翻译过来就是：<strong>加权多目标优化</strong>。君药是"主目标"，权重最大；臣药是"辅助目标"，权重次之；佐药处理"约束条件"，使药负责"全局平衡"。</p>
+
+    <img src="../images/Pareto前沿_中药优化.png" alt="Pareto前沿示意图——疗效与毒性的权衡曲线，桂枝汤落在前沿面上">
+
+    <h2>桂枝汤的数学翻译</h2>
+
+    <p>让我们做一个思想实验。把桂枝汤翻译成数学语言：</p>
+
+    <ul>
+        <li><strong>君药——桂枝</strong>（三两）：主攻"解表散寒"。这是优化的<strong>主目标函数</strong>——权重最大。</li>
+        <li><strong>臣药——芍药</strong>（三两）：辅助调和营卫，同时制约桂枝的燥热。这是<strong>辅助目标</strong>。</li>
+        <li><strong>佐药——生姜</strong>（三两）：助桂枝解表。处理<strong>协同约束</strong>。</li>
+        <li><strong>佐药——大枣</strong>（十二枚）：补中益气，缓冲药力。处理<strong>耐受约束</strong>。</li>
+        <li><strong>使药——甘草</strong>（二两）：调和诸药，harmonize全局。这是<strong>全局平衡项</strong>。</li>
+    </ul>
+
+    <p>在数学上，这就是一个<strong>加权多目标优化问题</strong>：</p>
+
+    <p style="text-align:center;font-size:1.05rem;"><strong>min F(x) = w₁·f₁(x) + w₂·f₂(x) + w₃·f₃(x) </strong></p>
+    <p style="text-align:center;color:var(--text-secondary);">其中 f₁=解表散寒（疗效），f₂=毒性，f₃=各药间拮抗作用</p>
+
+    <p>张仲景没有显式地解过这个优化问题。但他通过<strong>千百年来的临床反馈</strong>——一个天然的"梯度下降"过程——逐步逼近了那个最优配比。</p>
+
+    <h2>什么是Pareto前沿？</h2>
+
+    <p>意大利经济学家Vilfredo Pareto在1906年提出了一个概念：当一个系统有多个互相冲突的目标时，最优解不是一个点——而是一条<strong>前沿面</strong>（frontier）。</p>
+
+    <p>在Pareto前沿上的每一个点，都具有这样的性质：<strong>你无法在不损害某个目标的前提下，改善另一个目标。</strong></p>
+
+    <p>桂枝汤的配比，可以说是在"最大疗效 vs 最小毒性"这个二维空间中，找到了人类经验所能逼近的Pareto前沿上的一个点。三两三两三两十二枚二两——这个看似随意的组合，是1800年临床数据在隐式地做梯度下降后收敛到的结果。</p>
+
+    <img src="../images/中医数学总结.png" alt="总结卡——多目标优化框架、君臣佐使的数学翻译、Pareto前沿概念">
+
+    <h2>今天我们能用数学做什么？</h2>
+
+    <p>现代计算药理学已经开始用这套数学工具来研究中药：</p>
+
+    <ul>
+        <li><strong>网络药理学</strong>：把每味药的化合物→靶点→通络画成网络图，用图论分析方剂的作用机制。</li>
+        <li><strong>分子对接模拟</strong>：用计算机模拟药物分子和蛋白质受体的结合，量化"疗效"这个模糊概念。</li>
+        <li><strong>多目标优化算法</strong>：用遗传算法、粒子群优化等工具，在计算机中搜索更优的配比组合。</li>
+    </ul>
+
+    <p>有意思的是：现代的计算机优化算法找到的"最优配比"，常常和历史验方惊人接近。这反过来验证了：<strong>那些流传千年的方子，确实是某种"自然计算"的产物。</strong></p>
+
+    <blockquote>1800年前，张仲景没有计算器、没有微积分、没有Pareto最优的概念。但他有一个世界上最强大的优化器——临床实践中的试错反馈循环。而这个反馈循环，恰好等价于一个分布式梯度下降算法。每一代医生的每一次"调方"，都是这个算法的一次迭代。1800年，数万次迭代——收敛到了一个落在Pareto前沿上的点。</blockquote>
+
+    <div class="ai-meta">
+        <h3>本文回答了以下问题</h3>
+        <ul>
+            <li>中医方剂可以用数学解释吗？</li>
+            <li>什么是多目标优化？</li>
+            <li>什么是Pareto最优和Pareto前沿？</li>
+            <li>中医的"君臣佐使"如何翻译成数学语言？</li>
+            <li>为什么桂枝汤恰好是这五味药、这个比例？</li>
+        </ul>
+        <p><strong>核心数学概念：</strong>多目标优化、Pareto最优、Pareto前沿、加权优化、梯度下降</p>
+        <p><strong>适用读者：</strong>对数学建模和跨学科思维感兴趣的读者</p>
+        <p><strong>关联玩具：</strong>中医药材（可做小型配方实验）</p>
+        <p><strong>权威来源：</strong>张仲景《伤寒杂病论》（约公元200年）；现代网络药理学方法</p>
+    </div>
+
+    <div class="related">
+        <h3>继续阅读</h3>
+        <a href="slime-mold.html">黏菌与Steiner树</a>
+        <a href="huarongdao-heuristic.html">启发式搜索的真相</a>
+        <a href="tangram-13.html">七巧板和它的13个秘密</a>
+    </div>
+</article>
+</main>
+
+<footer class="container">
+    <p><strong>数学故事 Math-Story</strong> — 用玩具讲数学的科普品牌</p>
+    <p style="margin-top:8px;">© 2026 数学故事 Math-Story</p>
+</footer>
+
+</body>
+</html>
